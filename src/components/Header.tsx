@@ -1,5 +1,7 @@
 import Image from "next/image"
 import HambugerButton from "@/Images/HamburgerButton.png"
+import Logo from "@/Images/LogoRaval.png";
+import IconeRaval from "@/Images/IconeRaval.png"
 import Link from "next/link"
 
 interface HeaderProps {
@@ -93,9 +95,18 @@ const Header = ({ }: HeaderProps) => {
                 w-[203px] 
                 h-[50px] 
                 rounded-3xl 
-                drop-shadow-[0_4px_10px_rgba(0,0,0,0.25)]"
+                drop-shadow-[0_4px_10px_rgba(0,0,0,0.25)]
+                flex
+                items-end
+                justify-center"
             >
-
+                <Link 
+                    href={""}
+                    className="flex mb-1"
+                >
+                    <Image src={IconeRaval} alt={"Icone da logo"} className="w-[22px] h-[22px] mr-[2.35px]"/>
+                    <Image src={Logo} alt={"Logo"}/>
+                </Link>
             </div>
             <div
                 className="
