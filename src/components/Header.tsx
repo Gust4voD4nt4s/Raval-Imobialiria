@@ -1,14 +1,32 @@
+'use client'
 import Image from "next/image"
 import HambugerButton from "@/Images/HamburgerButton.png"
 import Logo from "@/Images/LogoRaval.png";
 import IconeRaval from "@/Images/IconeRaval.png"
+import Arrow from "@/Images/Arrow.png"
+import ArrowSelect from "@/Images/ArrowSelect.png"
 import Link from "next/link"
+import SelectRoot from "./Select/SelectRoot";
+import { useState } from "react";
+import SelectMenu from "./Select/SelectMenu";
+import SelectButton from "./Select/SelectButton";
+import { Select } from "./Select";
 
-interface HeaderProps {
 
-}
+const Header = ({ }) => {
 
-const Header = ({ }: HeaderProps) => {
+    const [selectVissible, setSelectVissible] = useState<{[key: string]: boolean}>({
+        estado: false,
+        cidade: false,
+    });
+
+    const toggleDropdown = (selectId: string) => {
+        setSelectVissible((prevMenus) => ({
+            ...prevMenus,
+            [selectId]: !prevMenus[selectId],
+        }))
+    }
+
     return (
         <header
             className="
@@ -100,12 +118,24 @@ const Header = ({ }: HeaderProps) => {
                 items-end
                 justify-center"
             >
-                <Link 
+                <Link
                     href={""}
-                    className="flex mb-1"
+                    className="
+                    flex 
+                    mb-1"
                 >
-                    <Image src={IconeRaval} alt={"Icone da logo"} className="w-[22px] h-[22px] mr-[2.35px]"/>
-                    <Image src={Logo} alt={"Logo"}/>
+                    <Image
+                        src={IconeRaval}
+                        alt={"Icone da logo"}
+                        className="
+                        w-[22px] 
+                        h-[22px] 
+                        mr-[2.35px]"
+                    />
+                    <Image
+                        src={Logo}
+                        alt={"Logo"}
+                    />
                 </Link>
             </div>
             <div
@@ -114,8 +144,48 @@ const Header = ({ }: HeaderProps) => {
                 w-[504px] 
                 h-[50px] 
                 rounded-s-3xl 
-                drop-shadow-[0_4px_10px_rgba(0,0,0,0.25)]"
+                drop-shadow-[0_4px_10px_rgba(0,0,0,0.25)]
+                flex
+                items-center
+                justify-center
+                space-x-3"
             >
+                <Select.Root>
+                    <Select.Button
+                        text="ESTADO"
+                        icon={ArrowSelect}
+                        onClick={() => toggleDropdown("estado")}
+                        className="w-[100px]"
+                    />
+                    <Select.Menu className={`${selectVissible["estado"] ? 'visible' : 'hidden'}`}/>
+                </Select.Root>
+
+                <Select.Root>
+                    <Select.Button 
+                        text="CIDADE" 
+                        icon={ArrowSelect}
+                        onClick={() => toggleDropdown("cidade")} 
+                        className="w-[200px]" />
+                    <Select.Menu className={`${selectVissible["cidade"] ? 'visible' : 'hidden'}`}  />
+                </Select.Root>
+
+                <button
+                    className="
+                    bg-[#085942] 
+                    px-2 
+                    h-6 
+                    font-semibold 
+                    text-[10px] 
+                    text-white 
+                    flex 
+                    justify-center 
+                    items-center 
+                    rounded-full 
+                    drop-shadow-[4px_4px_10px_rgba(0,0,0,0.25)]"
+                >
+                    <Image src={Arrow} alt={''} className="mr-1"></Image>
+                    <p>BUSCAR</p>
+                </button>
 
             </div>
         </header>
