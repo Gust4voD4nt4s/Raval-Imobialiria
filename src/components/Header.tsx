@@ -6,26 +6,54 @@ import IconeRaval from "@/Images/IconeRaval.png"
 import Arrow from "@/Images/Arrow.png"
 import ArrowSelect from "@/Images/ArrowSelect.png"
 import Link from "next/link"
-import SelectRoot from "./Select/SelectRoot";
-import { useState } from "react";
-import SelectMenu from "./Select/SelectMenu";
-import SelectButton from "./Select/SelectButton";
+import { useState, useEffect } from "react";
 import { Select } from "./Select";
 
-
 const Header = ({ }) => {
-
     const [selectVissible, setSelectVissible] = useState<{[key: string]: boolean}>({
         estado: false,
         cidade: false,
     });
 
+    const [selectedValues, setSelectedValues] = useState<{[key: string]: string}>({
+        estado: 'Estados',
+        cidade: 'Cidade',
+    });
+
+    const [estadoOptions, setEstadoOptions] = useState<string[]>([]);
+    const [cidadeOptions, setCidadeOptions] = useState<string[]>([]);
+
+    useEffect(() => {
+        // Simular chamada para carregar dados do banco de dados
+        const fetchData = async () => {
+            // Simular delay de carregamento
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Dados simulados
+            const fetchedEstadoOptions = ["Estados", "SP", "RJ", "MG"];
+            const fetchedCidadeOptions = ["Cidade", "São Paulo", "Rio de Janeiro", "Belo Horizonte"];
+
+            setEstadoOptions(fetchedEstadoOptions);
+            setCidadeOptions(fetchedCidadeOptions);
+        };
+
+        fetchData();
+    }, []);
+
     const toggleDropdown = (selectId: string) => {
         setSelectVissible((prevMenus) => ({
             ...prevMenus,
             [selectId]: !prevMenus[selectId],
-        }))
-    }
+        }));
+    };
+
+    const handleSelect = (selectId: string, value: string) => {
+        setSelectedValues((prevValues) => ({
+            ...prevValues,
+            [selectId]: value,
+        }));
+        toggleDropdown(selectId);  // Close the dropdown after selection
+    };
 
     return (
         <header
@@ -105,7 +133,6 @@ const Header = ({ }) => {
                         </Link>
                     </ul>
                 </nav>
-
             </div>
             <div
                 className="
@@ -151,22 +178,31 @@ const Header = ({ }) => {
                 space-x-3"
             >
                 <Select.Root>
-                    <Select.Button
-                        text="ESTADO"
-                        icon={ArrowSelect}
+                    <Select.Button 
+                        text={selectedValues["estado"]} 
+                        icon={ArrowSelect} 
+                        className="w-[100px] h-[25px]" 
                         onClick={() => toggleDropdown("estado")}
-                        className="w-[100px]"
                     />
-                    <Select.Menu className={`${selectVissible["estado"] ? 'visible' : 'hidden'}`}/>
+                    <Select.Menu 
+                        visible={selectVissible["estado"]} 
+                        options={estadoOptions} 
+                        onSelect={(value) => handleSelect("estado", value)}
+                    />
                 </Select.Root>
 
                 <Select.Root>
                     <Select.Button 
-                        text="CIDADE" 
-                        icon={ArrowSelect}
-                        onClick={() => toggleDropdown("cidade")} 
-                        className="w-[200px]" />
-                    <Select.Menu className={`${selectVissible["cidade"] ? 'visible' : 'hidden'}`}  />
+                        text={selectedValues["cidade"]} 
+                        icon={ArrowSelect} 
+                        className="w-[200px] h-[25px]" 
+                        onClick={() => toggleDropdown("cidade")}
+                    />
+                    <Select.Menu 
+                        visible={selectVissible["cidade"]} 
+                        options={cidadeOptions} 
+                        onSelect={(value) => handleSelect("cidade", value)}
+                    />
                 </Select.Root>
 
                 <button
@@ -186,7 +222,6 @@ const Header = ({ }) => {
                     <Image src={Arrow} alt={''} className="mr-1"></Image>
                     <p>BUSCAR</p>
                 </button>
-
             </div>
         </header>
     )

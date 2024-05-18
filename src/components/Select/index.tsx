@@ -4,6 +4,6 @@ import SelectRoot from "./SelectRoot";
 
 export const Select = {
     Root: SelectRoot,
-    Menu: SelectMenu,
     Button: SelectButton,
+    Menu: SelectMenu,
 }
