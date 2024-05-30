@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 import { Select } from "./Select";
 import { NavBar } from "./Navbar";
 import NavBarContainer from "./Navbar/NavBarContainer";
+import iconePerfil from '@/Images/icone_perfil.png'
 import Logo from "./Logo";
 import Button from "./Button";
 
@@ -69,7 +70,7 @@ const Header = ({ }) => {
                 drop-shadow-[0_20px_25px_rgba(0,0,0,0.25)]"
         >
 
-            <NavBar.Container 
+            <NavBar.Container
                 className="
                     rounded-e-3xl 
                     w-[514px]"
@@ -88,18 +89,7 @@ const Header = ({ }) => {
             >
                 <Logo logo={LogoRaval} iconeLogo={IconeRaval} />
             </NavBar.Container>
-            {/* <div
-                className="
-                bg-[rgb(4,64,58)] 
-                w-[504px] 
-                h-[50px] 
-                rounded-s-3xl 
-                drop-shadow-[0_4px_10px_rgba(0,0,0,0.25)]
-                flex
-                items-center
-                justify-center
-                space-x-3"
-            > */}
+
             <NavBar.Container
                 className="
                     w-[504px] 
@@ -139,6 +129,17 @@ const Header = ({ }) => {
                     icon={Arrow}
                     text="BUSCAR"
                 />
+
+                <div className="mt-1 pl-[10px]">
+                    <Link href='' className="flex flex-col items-center">
+                        <Image 
+                            src={iconePerfil} 
+                            alt='Icone de perfil'
+                            className="drop-shadow-[4px_4px_10px_rgba(0,0,0,0.25)]"
+                        />
+                        <p className="font-normal text-[7px] text-white">LOGAR</p>
+                    </Link>
+                </div>
             </NavBar.Container>
 
 

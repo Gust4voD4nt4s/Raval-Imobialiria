@@ -12,7 +12,7 @@ const ButtonResponsiveNavbar = ({icon}: ButtonResponsiveNavbarProps) => {
                     ml-3 
                     mr-7"
         >
-            <Image src={icon} alt="3 traços"/>
+            <Image className='drop-shadow-[4px_4px_10px_rgba(0,0,0,0.25)]' src={icon} alt="3 traços"/>
         </button>
     )
 }
