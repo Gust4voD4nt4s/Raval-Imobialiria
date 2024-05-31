@@ -73,7 +73,9 @@ const Header = ({ }) => {
             <NavBar.Container
                 className="
                     rounded-e-3xl 
-                    w-[514px]"
+                    w-[514px]
+                    max-mobile:flex
+                    max-mobile:justify-center"
             >
                 <NavBar.Button icon={HambugerButton} />
                 <NavBar.NavMenu />
@@ -81,27 +83,30 @@ const Header = ({ }) => {
 
             <NavBar.Container
                 className="
-                    w-[203px] 
+                    min-w-[203px] 
                     rounded-3xl 
                     flex
                     items-end
-                    justify-center"
+                    justify-center
+                    mx-3"
             >
                 <Logo logo={LogoRaval} iconeLogo={IconeRaval} />
             </NavBar.Container>
 
             <NavBar.Container
                 className="
-                    w-[504px] 
+                    w-[514px] 
                     rounded-s-3xl 
                     items-center 
-                    justify-center 
-                    space-x-3">
+                    justify-end
+                    space-x-4
+                    max-mobile:space-x-0
+                    max-mobile:justify-center">
                 <Select.Root>
                     <Select.Button
                         text={selectedValues["estado"]}
                         icon={ArrowSelect}
-                        className="w-[100px] h-[25px]"
+                        className="w-[100px] h-[25px] max-laptop:hidden"
                         onClick={() => toggleDropdown("estado")}
                     />
                     <Select.Menu
@@ -115,7 +120,7 @@ const Header = ({ }) => {
                     <Select.Button
                         text={selectedValues["cidade"]}
                         icon={ArrowSelect}
-                        className="w-[200px] h-[25px]"
+                        className="w-[200px] h-[25px] max-laptop:hidden"
                         onClick={() => toggleDropdown("cidade")}
                     />
                     <Select.Menu
@@ -128,18 +133,19 @@ const Header = ({ }) => {
                 <Button
                     icon={Arrow}
                     text="BUSCAR"
+                    className="max-laptop:hidden"
                 />
 
-                <div className="mt-1 pl-[10px]">
-                    <Link href='' className="flex flex-col items-center">
-                        <Image 
-                            src={iconePerfil} 
-                            alt='Icone de perfil'
-                            className="drop-shadow-[4px_4px_10px_rgba(0,0,0,0.25)]"
-                        />
-                        <p className="font-normal text-[7px] text-white">LOGAR</p>
-                    </Link>
-                </div>
+
+                <Link href='' className="flex flex-col items-center mt-1 pl-[10px] pr-[25px] max-mobile:pl-[10px] max-mobile:pr-0">
+                    <Image
+                        src={iconePerfil}
+                        alt='Icone de perfil'
+                        className="drop-shadow-[4px_4px_10px_rgba(0,0,0,0.25)]"
+                    />
+                    <p className="font-normal text-[7px] text-white">LOGAR</p>
+                </Link>
+
             </NavBar.Container>
 
 

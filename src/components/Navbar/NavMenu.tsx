@@ -8,7 +8,8 @@ const NavMenu = () => {
                 className="
                         flex
                         space-x-3
-                        text-white"
+                        text-white
+                        max-laptop:hidden"
             >
                 <Link
                     href={""}
