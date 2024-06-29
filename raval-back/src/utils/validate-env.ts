@@ -2,7 +2,12 @@ import {cleanEnv, port, str} from 'envalid'
 
 const validateEnv = () => {
     cleanEnv(process.env, {
-        PORT: port()
+        PORT: port(),
+        POSTGRES_HOST: str(),
+        POSTGRES_DB: str(),
+        POSTGRES_PORT: port(),
+        POSTGRES_USERNAME: str(),
+        POSTGRES_PASSWORD: str()
     });
 };
 

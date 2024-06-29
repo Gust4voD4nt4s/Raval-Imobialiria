@@ -1,0 +1,27 @@
+services:
+
+  db:
+    image: postgres:latest
+    container_name: dbpostgresql
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_DB: raval
+      POSTGRES_PASSWORD: GD4KV24GK-24K5GKVB
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_container
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: gustavo1234henrique.gd@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: NoGameNoLife0
+    ports:
+      - "5050:80"
+
+volumes:
+  postgres_data:
