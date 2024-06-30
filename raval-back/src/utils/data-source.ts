@@ -1,3 +1,5 @@
+require('dotenv').config();
+import "reflect-metadata"
 import config from 'config'
 import { Immobile } from '../entitys/immobile.entity'
 import { DataSource} from 'typeorm';
@@ -16,8 +18,9 @@ const postgresDataSource = new DataSource({
     type: 'postgres',
     synchronize: false,
     logging: false,
-    entities: [Immobile],
-    migrations: []
+    entities: ['src/entity/**/*.entity{.ts,.js}'],
+    migrations: ['src/migrations/**/*{.ts,.js}']
 })
 
 export default postgresDataSource
+

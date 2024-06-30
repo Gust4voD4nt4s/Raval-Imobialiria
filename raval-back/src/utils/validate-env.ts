@@ -6,7 +6,7 @@ const validateEnv = () => {
         POSTGRES_HOST: str(),
         POSTGRES_DB: str(),
         POSTGRES_PORT: port(),
-        POSTGRES_USERNAME: str(),
+        POSTGRES_USER: str(),
         POSTGRES_PASSWORD: str()
     });
 };

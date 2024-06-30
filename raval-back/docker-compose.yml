@@ -6,7 +6,7 @@ services:
     restart: always
     environment:
       POSTGRES_USER: root
-      POSTGRES_DB: raval
+      POSTGRES_DB: db_raval
       POSTGRES_PASSWORD: GD4KV24GK-24K5GKVB
     ports:
       - "5432:5432"
@@ -19,7 +19,7 @@ services:
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: gustavo1234henrique.gd@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: NoGameNoLife0
+      PGADMIN_DEFAULT_PASSWORD: ghds123
     ports:
       - "5050:80"
 
