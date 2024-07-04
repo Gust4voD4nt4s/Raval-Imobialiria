@@ -19,13 +19,15 @@ export class Immobile {
 
     @Column({
         type: 'enum',
-        enum: RoleEnumTypeOfProperty
+        enum: RoleEnumTypeOfProperty,
+        default: RoleEnumTypeOfProperty.HOME
     })
     type_imomobile: RoleEnumTypeOfProperty;
 
     @Column({
         type: 'enum',
-        enum: RoleEnumTypeOfProperty
+        enum: RoleEnumTypeOfProperty,
+        default: RoleEnumTypeOfPurchase.SALE
     })
     type_purchase: RoleEnumTypeOfPurchase;
 
@@ -37,7 +39,7 @@ export class Immobile {
 
     @Column({
         type: 'varchar',
-        length: 2
+        length: 2,
     })
     state: string;
 
@@ -65,11 +67,13 @@ export class Immobile {
 
     @Column({
         type: 'int',
+        nullable: true
     })
     bedrooms_quantity: number;
 
     @Column({
         type: 'int',
+        nullable: true
     })
     toilet_quantity: number
 

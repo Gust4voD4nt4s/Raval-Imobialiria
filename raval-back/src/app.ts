@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-import express, { NextFunction, Request, Response } from 'express';
+import express from 'express';
 import config from 'config';
 import validateEnv from './utils/validate-env';
 import postgresDataSource from './utils/data-source';
