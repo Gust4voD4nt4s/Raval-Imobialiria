@@ -1,8 +1,7 @@
 require('dotenv').config();
 import "reflect-metadata"
 import config from 'config'
-import { Immobile } from '../entitys/immobile.entity'
-import { DataSource} from 'typeorm';
+import { DataSource } from 'typeorm';
 
 
 const postgresConfig = config.get<{

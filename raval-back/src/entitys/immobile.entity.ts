@@ -1,4 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import Model from '../entitys/model.entity'
 
 export enum RoleEnumTypeOfProperty {
     HOME = 'casa',
@@ -13,7 +14,7 @@ export enum RoleEnumTypeOfPurchase {
 }
 
 @Entity('immobile')
-export class Immobile {
+export class Immobile extends Model {
     @PrimaryGeneratedColumn()
     id: number;
 

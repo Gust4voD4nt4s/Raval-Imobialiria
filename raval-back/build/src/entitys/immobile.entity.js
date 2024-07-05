@@ -8,9 +8,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Immobile = exports.RoleEnumTypeOfPurchase = exports.RoleEnumTypeOfProperty = void 0;
 const typeorm_1 = require("typeorm");
+const model_entity_1 = __importDefault(require("../entitys/model.entity"));
 var RoleEnumTypeOfProperty;
 (function (RoleEnumTypeOfProperty) {
     RoleEnumTypeOfProperty["HOME"] = "casa";
@@ -23,7 +27,7 @@ var RoleEnumTypeOfPurchase;
     RoleEnumTypeOfPurchase["SALE"] = "venda";
     RoleEnumTypeOfPurchase["RENT"] = "aluguel";
 })(RoleEnumTypeOfPurchase || (exports.RoleEnumTypeOfPurchase = RoleEnumTypeOfPurchase = {}));
-let Immobile = class Immobile {
+let Immobile = class Immobile extends model_entity_1.default {
 };
 exports.Immobile = Immobile;
 __decorate([
@@ -33,14 +37,16 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
-        enum: RoleEnumTypeOfProperty
+        enum: RoleEnumTypeOfProperty,
+        default: RoleEnumTypeOfProperty.HOME
     }),
     __metadata("design:type", String)
 ], Immobile.prototype, "type_imomobile", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
-        enum: RoleEnumTypeOfProperty
+        enum: RoleEnumTypeOfProperty,
+        default: RoleEnumTypeOfPurchase.SALE
     }),
     __metadata("design:type", String)
 ], Immobile.prototype, "type_purchase", void 0);
@@ -54,7 +60,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: 'varchar',
-        length: 2
+        length: 2,
     }),
     __metadata("design:type", String)
 ], Immobile.prototype, "state", void 0);
@@ -87,12 +93,14 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         type: 'int',
+        nullable: true
     }),
     __metadata("design:type", Number)
 ], Immobile.prototype, "bedrooms_quantity", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         type: 'int',
+        nullable: true
     }),
     __metadata("design:type", Number)
 ], Immobile.prototype, "toilet_quantity", void 0);

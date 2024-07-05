@@ -5,9 +5,9 @@ services:
     container_name: dbpostgresql
     restart: always
     environment:
-      POSTGRES_USER: root
-      POSTGRES_DB: db_raval
-      POSTGRES_PASSWORD: GD4KV24GK-24K5GKVB
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5432:5432"
     volumes:
@@ -18,8 +18,8 @@ services:
     container_name: pgadmin_container
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: gustavo1234henrique.gd@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: ghds123
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
     ports:
       - "5050:80"
 

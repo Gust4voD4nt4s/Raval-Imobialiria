@@ -1,4 +1,4 @@
-import {boolean, number, object, string, z} from 'zod'
+import { number, object, string, z } from 'zod'
 
 import {RoleEnumTypeOfProperty, RoleEnumTypeOfPurchase} from '../entitys/immobile.entity'
 
