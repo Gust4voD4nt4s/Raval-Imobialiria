@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
-import Model from '../entitys/model.entity'
+import Model from './model.entity'
 
 export enum RoleEnumTypeOfProperty {
     HOME = 'casa',
@@ -10,7 +10,7 @@ export enum RoleEnumTypeOfProperty {
 
 export enum RoleEnumTypeOfPurchase {
     SALE = 'venda',
-    RENT = 'aluguel',
+    RENT = 'aluguel'
 }
 
 @Entity('immobile')
@@ -21,14 +21,12 @@ export class Immobile extends Model {
     @Column({
         type: 'enum',
         enum: RoleEnumTypeOfProperty,
-        default: RoleEnumTypeOfProperty.HOME
     })
     type_imomobile: RoleEnumTypeOfProperty;
 
     @Column({
         type: 'enum',
-        enum: RoleEnumTypeOfProperty,
-        default: RoleEnumTypeOfPurchase.SALE
+        enum: RoleEnumTypeOfPurchase,
     })
     type_purchase: RoleEnumTypeOfPurchase;
 
@@ -45,7 +43,7 @@ export class Immobile extends Model {
     state: string;
 
     @Column({
-        type: 'int'
+        type: 'float'
     })
     value: number;
 
@@ -62,52 +60,53 @@ export class Immobile extends Model {
     description?: string;
 
     @Column({
-        type: 'int'
+        type: 'float'
     })
     square_meters: number;
 
     @Column({
         type: 'int',
-        nullable: true
+        nullable: true,
+        default: null
     })
-    bedrooms_quantity: number;
+    bedrooms_quantity?: number;
 
     @Column({
         type: 'int',
-        nullable: true
+        nullable: true,
+        default: null
     })
-    toilet_quantity: number
+    toilet_quantity?: number
 
     @Column({
         type: 'int',
-        nullable: true
+        nullable: true,
+        default: null
     })
     garage_quantity?: number;
 
     @Column({
         type: 'boolean',
         default: false,
-        nullable: true
     })
     recreation_area?: boolean;
 
     @Column({
         type: 'int',
-        nullable: true
+        nullable: true,
+        default: null
     })
     pool_size?: number;
 
     @Column({
         type: 'boolean',
         default: false,
-        nullable: true
     })
     academy?: boolean;
 
     @Column({
         type: 'boolean',
         default: false,
-        nullable: true
     })
     plant?: boolean;
     

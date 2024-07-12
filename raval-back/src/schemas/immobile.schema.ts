@@ -1,15 +1,15 @@
-import { number, object, string, z } from 'zod'
+import { TypeOf, boolean, number, object, string, z } from 'zod'
 
-import {RoleEnumTypeOfProperty, RoleEnumTypeOfPurchase} from '../entitys/immobile.entity'
+import { RoleEnumTypeOfProperty, RoleEnumTypeOfPurchase } from '../entitys/immobile.entity'
 
-export const createImmobile = object({
-    body: object({
+export const createImmobileSchema = object({
+    body: object({          
         type_imomobile: z.nativeEnum(RoleEnumTypeOfProperty),
 
         type_purchase: z.nativeEnum(RoleEnumTypeOfPurchase),
 
         city: string({
-            required_error: 'Cidade é obrigatorio'
+            required_error: "Cidade é obrigatorio"
         }).max(50, 'Cidade deve ter no maximo 50 caracters'),
 
         state: string({
@@ -20,7 +20,7 @@ export const createImmobile = object({
             required_error: 'Valor é obrigatorio'
         }),
 
-        adrress: string({
+        address: string({
             required_error: 'Endereço é obrigatorio'
         }).max(255, 'Endereço deve ter no maximo 255 caracters'),
 
@@ -28,6 +28,16 @@ export const createImmobile = object({
             required_error: 'Area quadrado é obrigatorio'
         }),
 
+        description: string().optional(),
+        bedrooms_quantity: number().optional(),
+        toilet_quantity: number().optional(),
+        garage_quantity: number().optional(),
+        recreation_area: boolean().optional(),
+        pool_size: number().optional(),
+        academy: boolean().optional(),
+        plant: boolean().optional()
+
     })
 })
 
+export type CreateImmobileInput = TypeOf<typeof createImmobileSchema>['body'];

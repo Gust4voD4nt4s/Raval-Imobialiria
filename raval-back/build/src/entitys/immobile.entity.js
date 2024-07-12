@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Immobile = exports.RoleEnumTypeOfPurchase = exports.RoleEnumTypeOfProperty = void 0;
 const typeorm_1 = require("typeorm");
-const model_entity_1 = __importDefault(require("../entitys/model.entity"));
+const model_entity_1 = __importDefault(require("./model.entity"));
 var RoleEnumTypeOfProperty;
 (function (RoleEnumTypeOfProperty) {
     RoleEnumTypeOfProperty["HOME"] = "casa";
@@ -38,15 +38,13 @@ __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
         enum: RoleEnumTypeOfProperty,
-        default: RoleEnumTypeOfProperty.HOME
     }),
     __metadata("design:type", String)
 ], Immobile.prototype, "type_imomobile", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         type: 'enum',
-        enum: RoleEnumTypeOfProperty,
-        default: RoleEnumTypeOfPurchase.SALE
+        enum: RoleEnumTypeOfPurchase,
     }),
     __metadata("design:type", String)
 ], Immobile.prototype, "type_purchase", void 0);
@@ -66,7 +64,7 @@ __decorate([
 ], Immobile.prototype, "state", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        type: 'int'
+        type: 'float'
     }),
     __metadata("design:type", Number)
 ], Immobile.prototype, "value", void 0);
@@ -86,28 +84,31 @@ __decorate([
 ], Immobile.prototype, "description", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        type: 'int'
+        type: 'float'
     }),
     __metadata("design:type", Number)
 ], Immobile.prototype, "square_meters", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         type: 'int',
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Number)
 ], Immobile.prototype, "bedrooms_quantity", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         type: 'int',
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Number)
 ], Immobile.prototype, "toilet_quantity", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         type: 'int',
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Number)
 ], Immobile.prototype, "garage_quantity", void 0);
@@ -115,14 +116,14 @@ __decorate([
     (0, typeorm_1.Column)({
         type: 'boolean',
         default: false,
-        nullable: true
     }),
     __metadata("design:type", Boolean)
 ], Immobile.prototype, "recreation_area", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         type: 'int',
-        nullable: true
+        nullable: true,
+        default: null
     }),
     __metadata("design:type", Number)
 ], Immobile.prototype, "pool_size", void 0);
@@ -130,7 +131,6 @@ __decorate([
     (0, typeorm_1.Column)({
         type: 'boolean',
         default: false,
-        nullable: true
     }),
     __metadata("design:type", Boolean)
 ], Immobile.prototype, "academy", void 0);
@@ -138,7 +138,6 @@ __decorate([
     (0, typeorm_1.Column)({
         type: 'boolean',
         default: false,
-        nullable: true
     }),
     __metadata("design:type", Boolean)
 ], Immobile.prototype, "plant", void 0);

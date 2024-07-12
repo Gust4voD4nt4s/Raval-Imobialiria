@@ -1,5 +1,6 @@
 import {Request} from 'express'
 import multer from 'multer';
+import path, {extname} from 'path';
 
 interface MulterFile {
     fieldname: string;
@@ -13,15 +14,17 @@ interface MulterFile {
     buffer: Buffer;
   }
 
+const random = () => Math.floor(Math.random() * 1000 + 1000);
+
 const storage = multer.diskStorage({
   destination: function (req: Request, file: MulterFile, cb: (error: Error | null, destination: string) => void) {
-    cb(null, '../uploads'); 
+    const uploadPath = path.resolve(__dirname,'../uploads');
+    cb(null, uploadPath); 
   },
   filename: function (req: Request, file: MulterFile, cb: (error: Error | null, destination: string) => void) {
-    cb(null, file.originalname);
+    cb(null, `${Date.now()}_${random()}${extname(file.originalname)}`);
   },
 });
 
-const upload = multer({ storage });
+export const upload = multer({ storage });
 
-module.exports = upload;

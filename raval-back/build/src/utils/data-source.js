@@ -8,6 +8,6 @@ require("reflect-metadata");
 const config_1 = __importDefault(require("config"));
 const typeorm_1 = require("typeorm");
 const postgresConfig = config_1.default.get('postgreConfig');
-const postgresDataSource = new typeorm_1.DataSource(Object.assign(Object.assign({}, postgresConfig), { type: 'postgres', synchronize: false, logging: false, entities: ['src/entity/**/*.entity{.ts,.js}'], migrations: ['src/migrations/**/*{.ts,.js}'] }));
+const postgresDataSource = new typeorm_1.DataSource(Object.assign(Object.assign({}, postgresConfig), { type: 'postgres', synchronize: false, logging: false, entities: ['src/entitys/**/*.entity{.ts,.js}'], migrations: ['src/migrations/**/*{.ts,.js}'] }));
 exports.default = postgresDataSource;
 //# sourceMappingURL=data-source.js.map

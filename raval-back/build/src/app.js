@@ -17,11 +17,13 @@ const express_1 = __importDefault(require("express"));
 const config_1 = __importDefault(require("config"));
 const validate_env_1 = __importDefault(require("./utils/validate-env"));
 const data_source_1 = __importDefault(require("./utils/data-source"));
+const immobile_route_1 = __importDefault(require("./routes/immobile.route"));
 data_source_1.default.initialize()
     .then(() => __awaiter(void 0, void 0, void 0, function* () {
     (0, validate_env_1.default)();
     const app = (0, express_1.default)();
     app.use(express_1.default.json({ limit: '10kb' }));
+    app.use('/api/v1/immobile', immobile_route_1.default);
     const port = config_1.default.get('port');
     app.listen(port);
     console.log(`Server Started on port: ${port}`);

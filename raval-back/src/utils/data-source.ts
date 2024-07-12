@@ -17,7 +17,7 @@ const postgresDataSource = new DataSource({
     type: 'postgres',
     synchronize: false,
     logging: false,
-    entities: ['src/entity/**/*.entity{.ts,.js}'],
+    entities: ['src/entitys/**/*.entity{.ts,.js}'],
     migrations: ['src/migrations/**/*{.ts,.js}']
 })
 
