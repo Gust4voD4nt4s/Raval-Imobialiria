@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Immobile = exports.RoleEnumTypeOfPurchase = exports.RoleEnumTypeOfProperty = void 0;
 const typeorm_1 = require("typeorm");
 const model_entity_1 = __importDefault(require("./model.entity"));
+const images_entity_1 = __importDefault(require("./images.entity"));
 var RoleEnumTypeOfProperty;
 (function (RoleEnumTypeOfProperty) {
     RoleEnumTypeOfProperty["HOME"] = "casa";
@@ -141,6 +142,10 @@ __decorate([
     }),
     __metadata("design:type", Boolean)
 ], Immobile.prototype, "plant", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => images_entity_1.default, (image) => image.immobile),
+    __metadata("design:type", Array)
+], Immobile.prototype, "images", void 0);
 exports.Immobile = Immobile = __decorate([
     (0, typeorm_1.Entity)('immobile')
 ], Immobile);

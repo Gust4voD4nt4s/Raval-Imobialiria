@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import Model from './model.entity'
+import Images from './images.entity';
 
 export enum RoleEnumTypeOfProperty {
     HOME = 'casa',
@@ -15,6 +16,7 @@ export enum RoleEnumTypeOfPurchase {
 
 @Entity('immobile')
 export class Immobile extends Model {
+
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -110,4 +112,6 @@ export class Immobile extends Model {
     })
     plant?: boolean;
     
+    @OneToMany(() => Images, (image) => image.immobile)
+    images: Images[]
 }

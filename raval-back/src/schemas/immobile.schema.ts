@@ -1,6 +1,15 @@
-import { TypeOf, boolean, number, object, string, z } from 'zod'
+import { TypeOf, array, boolean, number, object, string, z } from 'zod'
 
 import { RoleEnumTypeOfProperty, RoleEnumTypeOfPurchase } from '../entitys/immobile.entity'
+
+const imageSchema = object({
+    originalname: string({
+        required_error: 'Nome original da imagem é obrigatório'
+    }),
+    filename: string({
+        required_error: 'Nome do arquivo da imagem é obrigatório'
+    })
+});
 
 export const createImmobileSchema = object({
     body: object({          
@@ -35,8 +44,9 @@ export const createImmobileSchema = object({
         recreation_area: boolean().optional(),
         pool_size: number().optional(),
         academy: boolean().optional(),
-        plant: boolean().optional()
+        plant: boolean().optional(),
 
+        images: array(imageSchema).optional()
     })
 })
 
