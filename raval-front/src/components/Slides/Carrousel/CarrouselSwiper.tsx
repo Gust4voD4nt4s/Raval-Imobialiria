@@ -17,11 +17,19 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import { useFetch } from '@/hooks/useRequest';
+
+interface Repository {
+    id: number,
+    type_imomobile: string
+}
 
 
 const CarrouselSwiper = () => {
 
     const imoveis = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+    const data = useFetch<Repository[]>('http://localhost:3001/api/v1/immobile/')
 
     return (
         <Swiper
@@ -56,9 +64,9 @@ const CarrouselSwiper = () => {
             '
         >
 
-            {imoveis.map((imovel) => (
+            {data?.map((imovel) => (
                 <>
-                    <SwiperSlide key={imovel} className='max-w-[250px]'>
+                    <SwiperSlide key={imovel.id} className='max-w-[250px]'>
                         <div
                             className='
                                 max-w-[250px] 

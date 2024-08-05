@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { createImmobile } from '../services/immobile.service'
+import { createImmobile, findImmobiles } from '../services/immobile.service'
 import { CreateImmobileInput, createImmobileSchema } from '../schemas/immobile.schema';
 import { ZodError } from 'zod';
 
@@ -19,5 +19,23 @@ export const registerImmobile = async (req: Request<object, object, CreateImmobi
         } else {
             res.status(500).json({ message: 'Erro interno do servidor' });
         }
+    }
+}
+
+export const getImmobile = async (req: Request, res: Response) => {
+    try {
+        const data = req.query
+        const immobiles = await findImmobiles({
+            relations: {
+                images: true
+            },
+            where: {
+                ...data
+            }
+        })
+        res.status(200).json(immobiles)
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({error: error})
     }
 }

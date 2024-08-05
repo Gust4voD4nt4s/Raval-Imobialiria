@@ -13,4 +13,3 @@ export const createImmobile = async (immobile: CreateImmobileInput): Promise<Imm
 export const findImmobiles = async (query: object) => {
     return immobileRepository.find(query)
 }
-
