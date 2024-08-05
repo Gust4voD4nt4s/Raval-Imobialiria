@@ -27,7 +27,7 @@ const multerMiddleware = {
 
   storage: multer.diskStorage({
     destination: function (req: Request, file: MulterFile, cb: (error: Error | null, destination: string) => void) {
-      const uploadPath = path.resolve(__dirname, '../uploads');
+      const uploadPath = path.resolve(__dirname, '../uploads', 'images');
       cb(null, uploadPath);
     },
     filename: function (req: Request, file: MulterFile, cb: (error: Error | null, filename: string) => void) {

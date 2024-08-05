@@ -14,7 +14,6 @@ const propertyRepository: Repository<Property> = postgresDataSource.getRepositor
 
 export const createImages = async (images: IImages[]) => {
     const newImages = [];
-
     for (const imageData of images) {
         const property = await propertyRepository.findOne({ where: { id: imageData.property_id } });
         if (!property) {

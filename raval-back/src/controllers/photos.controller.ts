@@ -11,7 +11,6 @@ export const photosProperty = (req: Request, res: Response) => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const images: any = req.files
         const propertyId = req.body.property_id
-
         try {
             const newImages: IImages[] = []
 
@@ -29,7 +28,7 @@ export const photosProperty = (req: Request, res: Response) => {
             res.status(201).json(newImages)
         } catch (error) {
             console.log(error)
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ error: error });
         }
 
     });

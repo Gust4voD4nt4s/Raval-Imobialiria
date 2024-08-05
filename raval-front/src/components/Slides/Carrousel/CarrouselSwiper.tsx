@@ -19,6 +19,15 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useFetch } from '@/hooks/useRequest';
 
+interface ImageData {
+    id: number;
+    created_at: string;
+    deleted_at: string | null;
+    originalname: string;
+    filename: string;
+    url: string
+}
+
 interface Repository {
     id: number,
     type_property: string,
@@ -31,19 +40,20 @@ interface Repository {
     square_meters: number,
     bedrooms_quantity?: number,
     toilet_quantity?: number,
-    garage_quantity?: number;
-    recreation_area?: boolean;
-    pool_size?: number;
-    academy?: boolean;
-    plant?: boolean;
+    garage_quantity?: number,
+    recreation_area?: boolean,
+    pool_size?: number,
+    academy?: boolean,
+    plant?: boolean,
+    images: ImageData[]
 }
 
 
 const CarrouselSwiper = () => {
 
-    const imoveis = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     const data = useFetch<Repository[]>('http://localhost:3001/api/v1/property/')
+
 
     return (
         <Swiper
@@ -89,7 +99,8 @@ const CarrouselSwiper = () => {
                                 text-start
                             '
                     >
-                        <Image src={ImageImovel} alt='' className='rounded-t-[15px]' />
+                        
+                        <Image src={imovel.images?.[0]?.url || ImageImovel} alt='' width={250} height={250} className='rounded-t-[15px]' />
 
                         <div
                             className='
@@ -98,7 +109,6 @@ const CarrouselSwiper = () => {
                                     top-2
                                     flex
                                     items-end
-                                    justify-between
                                     px-2
                                 '
                         >
@@ -126,12 +136,12 @@ const CarrouselSwiper = () => {
                             <Image
                                 src={Star}
                                 alt='star'
-                                className='cursor-pointer drop-shadow-[2px_2px_5px_rgba(0,0,0,0.25)]'
+                                className='cursor-pointer drop-shadow-[2px_2px_5px_rgba(0,0,0,0.25)] absolute right-2 top-0'
                             />
                         </div>
 
                         <div className='ml-2 mt-[7px]'>
-                            <h1 className='text-base'>{imovel.type_purchase} - {imovel.type_property}</h1>
+                            <h1 className='text-base'>{imovel.type_purchase.toUpperCase()} - {imovel.type_property.toUpperCase()}</h1>
                             <p className='text-xs'>{imovel.city}, {imovel.state}</p>
                             <ul className='flex flex-col space-y-1 mt-5'>
                                 <li className='flex'>

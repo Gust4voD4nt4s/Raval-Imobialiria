@@ -1,7 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { AfterLoad, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Model from "./model.entity";
 import { Property } from "./property.entity";
-
+import config from '../../config/default'
 
 @Entity('images')
 export default abstract class Images extends Model {
@@ -21,9 +21,16 @@ export default abstract class Images extends Model {
     })
     filename: string;
 
+    url: string
+
+    @AfterLoad()
+    getImages() {
+        this.url = `${config.baseUrl}/images/${this.filename}`
+    }
+
     @ManyToOne(() => Property, property => property.images)
-    @JoinColumn({ name: "property_id" }) 
+    @JoinColumn({ name: "property_id" })
     property: Property;
-    
+
 }
 

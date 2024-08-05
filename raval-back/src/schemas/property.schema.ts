@@ -13,7 +13,7 @@ const imageSchema = object({
 
 export const createPropertySchema = object({
     body: object({          
-        type_imomobile: z.nativeEnum(RoleEnumTypeOfProperty),
+        type_property: z.nativeEnum(RoleEnumTypeOfProperty),
 
         type_purchase: z.nativeEnum(RoleEnumTypeOfPurchase),
 
