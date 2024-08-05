@@ -14,8 +14,8 @@ export enum RoleEnumTypeOfPurchase {
     RENT = 'aluguel'
 }
 
-@Entity('immobile')
-export class Immobile extends Model {
+@Entity('property')
+export class Property extends Model {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -24,7 +24,7 @@ export class Immobile extends Model {
         type: 'enum',
         enum: RoleEnumTypeOfProperty,
     })
-    type_imomobile: RoleEnumTypeOfProperty;
+    type_property: RoleEnumTypeOfProperty;
 
     @Column({
         type: 'enum',
@@ -112,6 +112,6 @@ export class Immobile extends Model {
     })
     plant?: boolean;
     
-    @OneToMany(() => Images, (image) => image.immobile)
+    @OneToMany(() => Images, (image) => image.property)
     images: Images[]
 }

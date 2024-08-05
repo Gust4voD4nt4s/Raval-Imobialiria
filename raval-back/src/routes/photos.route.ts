@@ -1,7 +1,7 @@
-import { photosImmobile } from "../controllers/photos.controller"
+import { photosProperty } from "../controllers/photos.controller"
 const router = require('express').Router()
 
 
-router.post('/photosImmobile/', photosImmobile)
+router.post('/photosProperty/', photosProperty)
 
 export default router

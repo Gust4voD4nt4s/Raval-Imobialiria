@@ -1,10 +1,10 @@
 require('dotenv').config();
-
+const cors = require('cors')
 import express from 'express';
 import config from 'config';
 import validateEnv from './utils/validate-env';
 import postgresDataSource from './utils/data-source';
-import immobileRouter from './routes/immobile.route';
+import propertyRouter from './routes/property.route';
 import photosRouter from './routes/photos.route'
 
 postgresDataSource.initialize()
@@ -15,7 +15,11 @@ postgresDataSource.initialize()
 
         app.use(express.json({ limit: '10kb' }));
 
-        app.use('/api/v1/immobile', immobileRouter)
+        app.use(cors({
+            origin: config.get<string>('origin')
+        }))
+
+        app.use('/api/v1/property', propertyRouter)
         app.use('/api/v1', photosRouter)
 
         const port = config.get<number>('port');

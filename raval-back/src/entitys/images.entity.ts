@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Model from "./model.entity";
-import { Immobile } from "./immobile.entity";
+import { Property } from "./property.entity";
 
 
 @Entity('images')
@@ -21,9 +21,9 @@ export default abstract class Images extends Model {
     })
     filename: string;
 
-    @ManyToOne(() => Immobile, immobile => immobile.images)
-    @JoinColumn({ name: "immobile_id" }) 
-    immobile: Immobile;
+    @ManyToOne(() => Property, property => property.images)
+    @JoinColumn({ name: "property_id" }) 
+    property: Property;
     
 }
 

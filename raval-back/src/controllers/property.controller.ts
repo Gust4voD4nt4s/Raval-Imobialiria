@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express'
-import { createImmobile, findImmobiles } from '../services/immobile.service'
-import { CreateImmobileInput, createImmobileSchema } from '../schemas/immobile.schema';
+import { createProperty, findPropertys } from '../services/property.service'
+import { CreatePropertyInput, createPropertySchema } from '../schemas/property.schema';
 import { ZodError } from 'zod';
 
-export const registerImmobile = async (req: Request<object, object, CreateImmobileInput>, res: Response, next: NextFunction) => {
+export const registerProperty = async (req: Request<object, object, CreatePropertyInput>, res: Response, next: NextFunction) => {
     try {
-        const newImmobile = createImmobileSchema.parse({ body: req.body })
-        await createImmobile(newImmobile.body)
+        const newProperty = createPropertySchema.parse({ body: req.body })
+        await createProperty(newProperty.body)
         res.status(201).json({ message: 'Imovel criado com sucesso' });
         next()
     } catch (error) {
@@ -22,10 +22,10 @@ export const registerImmobile = async (req: Request<object, object, CreateImmobi
     }
 }
 
-export const getImmobile = async (req: Request, res: Response) => {
+export const getProperty = async (req: Request, res: Response) => {
     try {
         const data = req.query
-        const immobiles = await findImmobiles({
+        const propertys = await findPropertys({
             relations: {
                 images: true
             },
@@ -33,7 +33,7 @@ export const getImmobile = async (req: Request, res: Response) => {
                 ...data
             }
         })
-        res.status(200).json(immobiles)
+        res.status(200).json(propertys)
     } catch (error) {
         console.log(error)
         res.status(400).json({error: error})

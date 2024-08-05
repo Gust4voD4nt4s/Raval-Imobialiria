@@ -21,7 +21,21 @@ import { useFetch } from '@/hooks/useRequest';
 
 interface Repository {
     id: number,
-    type_imomobile: string
+    type_property: string,
+    type_purchase: string,
+    city: string,
+    state: string,
+    value: number,
+    address: string,
+    description?: string,
+    square_meters: number,
+    bedrooms_quantity?: number,
+    toilet_quantity?: number,
+    garage_quantity?: number;
+    recreation_area?: boolean;
+    pool_size?: number;
+    academy?: boolean;
+    plant?: boolean;
 }
 
 
@@ -29,7 +43,7 @@ const CarrouselSwiper = () => {
 
     const imoveis = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    const data = useFetch<Repository[]>('http://localhost:3001/api/v1/immobile/')
+    const data = useFetch<Repository[]>('http://localhost:3001/api/v1/property/')
 
     return (
         <Swiper
@@ -65,20 +79,20 @@ const CarrouselSwiper = () => {
         >
 
             {data?.map((imovel) => (
-                <>
-                    <SwiperSlide key={imovel.id} className='max-w-[250px]'>
-                        <div
-                            className='
+                <SwiperSlide key={imovel.id} className='max-w-[250px]'>
+                    <div
+                        className='
                                 max-w-[250px] 
                                 h-[413px] 
                                 bg-white
                                 rounded-[15px]
                                 text-start
                             '
-                        >
-                            <Image src={ImageImovel} alt='' className='rounded-t-[15px]' />
-                            <div
-                                className='
+                    >
+                        <Image src={ImageImovel} alt='' className='rounded-t-[15px]' />
+
+                        <div
+                            className='
                                     w-full
                                     absolute
                                     top-2
@@ -87,7 +101,8 @@ const CarrouselSwiper = () => {
                                     justify-between
                                     px-2
                                 '
-                            >
+                        >
+                            {imovel.plant === true ?
                                 <div
                                     className='
                                         w-14 
@@ -105,38 +120,38 @@ const CarrouselSwiper = () => {
                                     '
                                 >
                                     <p>NA PLANTA</p>
-                                </div>
-                                <Image
-                                    src={Star}
-                                    alt='star'
-                                    className='cursor-pointer drop-shadow-[2px_2px_5px_rgba(0,0,0,0.25)]'
-                                />
-                            </div>
+                                </div> 
+                            : ''}
 
-                            <div className='ml-2 mt-[7px]'>
-                                <h1 className='text-base'>Venda - Apartamento</h1>
-                                <p className='text-xs'>Valparaiso de goias, GO</p>
-                                <ul className='flex flex-col space-y-1 mt-5'>
-                                    <li className='flex'>
-                                        <Image src={M2} alt='Metros Quadrado' />
-                                        <p className='ml-1'>600 m2</p>
-                                    </li>
-                                    <li className='flex'>
-                                        <Image src={Cama} alt='Quarto' />
-                                        <p className='ml-1'>4 Quartos</p>
-                                    </li>
-                                    <li className='flex'>
-                                        <Image src={Banheira} alt='Banheiro' />
-                                        <p className='ml-1'>3 Banheiros</p>
-                                    </li>
-                                </ul>
-                                <Image src={LogoMCMV} alt='logo minha casa minha vida' className='absolute right-2 bottom-2 drop-shadow-[4px_4px_20px_rgba(0,0,0,0.25)]' />
-                            </div>
-
-
+                            <Image
+                                src={Star}
+                                alt='star'
+                                className='cursor-pointer drop-shadow-[2px_2px_5px_rgba(0,0,0,0.25)]'
+                            />
                         </div>
-                    </SwiperSlide>
-                </>
+
+                        <div className='ml-2 mt-[7px]'>
+                            <h1 className='text-base'>{imovel.type_purchase} - {imovel.type_property}</h1>
+                            <p className='text-xs'>{imovel.city}, {imovel.state}</p>
+                            <ul className='flex flex-col space-y-1 mt-5'>
+                                <li className='flex'>
+                                    <Image src={M2} alt='Metros Quadrado' />
+                                    <p className='ml-1'>{imovel.square_meters} m2</p>
+                                </li>
+                                <li className='flex'>
+                                    <Image src={Cama} alt='Quarto' />
+                                    <p className='ml-1'>{imovel.bedrooms_quantity} Quartos</p>
+                                </li>
+                                <li className='flex'>
+                                    <Image src={Banheira} alt='Banheiro' />
+                                    <p className='ml-1'>{imovel.toilet_quantity} Banheiros</p>
+                                </li>
+                            </ul>
+                            <Image src={LogoMCMV} alt='logo minha casa minha vida' className='absolute right-2 bottom-2 drop-shadow-[4px_4px_20px_rgba(0,0,0,0.25)]' />
+                        </div>
+
+                    </div>
+                </SwiperSlide>
             ))}
 
 

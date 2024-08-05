@@ -1,6 +1,6 @@
 import { TypeOf, array, boolean, number, object, string, z } from 'zod'
 
-import { RoleEnumTypeOfProperty, RoleEnumTypeOfPurchase } from '../entitys/immobile.entity'
+import { RoleEnumTypeOfProperty, RoleEnumTypeOfPurchase } from '../entitys/property.entity'
 
 const imageSchema = object({
     originalname: string({
@@ -11,7 +11,7 @@ const imageSchema = object({
     })
 });
 
-export const createImmobileSchema = object({
+export const createPropertySchema = object({
     body: object({          
         type_imomobile: z.nativeEnum(RoleEnumTypeOfProperty),
 
@@ -50,4 +50,4 @@ export const createImmobileSchema = object({
     })
 })
 
-export type CreateImmobileInput = TypeOf<typeof createImmobileSchema>['body'];
+export type CreatePropertyInput = TypeOf<typeof createPropertySchema>['body'];
