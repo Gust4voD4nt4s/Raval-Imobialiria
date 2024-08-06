@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { createProperty, findPropertys } from '../services/property.service'
 import { CreatePropertyInput, createPropertySchema } from '../schemas/property.schema';
-import { In } from 'typeorm';
+import { Between, In, MoreThanOrEqual } from 'typeorm';
 
 export const registerProperty = async (req: Request<object, object, CreatePropertyInput>, res: Response, next: NextFunction) => {
     try {
@@ -35,6 +35,24 @@ export const getProperty = async (req: Request, res: Response) => {
                     ...multiFilter,
                     [value]: In(data[value])
                 }
+            }
+
+            if (value == 'square_meters') {
+                multiFilter = {
+                    ...multiFilter,
+                    [value]: MoreThanOrEqual(data[value])
+                }
+            }
+
+            if (value == 'min_value' || value == 'max_value') {
+
+                multiFilter = {
+                    ...multiFilter,
+                    value: Between(data.min_value, data.max_value)
+                }
+
+                delete multiFilter.min_value
+                delete multiFilter.max_value
             }
 
         }
