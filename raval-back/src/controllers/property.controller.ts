@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { createProperty, findPropertys } from '../services/property.service'
 import { CreatePropertyInput, createPropertySchema } from '../schemas/property.schema';
-import { ZodError } from 'zod';
+import { In } from 'typeorm';
 
 export const registerProperty = async (req: Request<object, object, CreatePropertyInput>, res: Response, next: NextFunction) => {
     try {
@@ -25,17 +25,33 @@ export const registerProperty = async (req: Request<object, object, CreateProper
 export const getProperty = async (req: Request, res: Response) => {
     try {
         const data = req.query
+
+        let multiFilter: object = { ...data }
+
+        for (const value in data) {
+            if (typeof data[value] === typeof {}) {
+
+                multiFilter = {
+                    ...multiFilter,
+                    [value]: In(data[value])
+                }
+            }
+
+        }
+
         const propertys = await findPropertys({
             relations: {
                 images: true
             },
             where: {
-                ...data
+                ...multiFilter
             }
+
         })
+        
         res.status(200).json(propertys)
     } catch (error) {
         console.log(error)
-        res.status(400).json({error: error})
+        res.status(400).json({ error: error })
     }
 }
