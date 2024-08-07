@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import { createProperty, findPropertys } from '../services/property.service'
 import { CreatePropertyInput, createPropertySchema } from '../schemas/property.schema';
 import { Between, In, MoreThanOrEqual } from 'typeorm';
+import { ZodError } from 'zod';
 
 export const registerProperty = async (req: Request<object, object, CreatePropertyInput>, res: Response, next: NextFunction) => {
     try {
