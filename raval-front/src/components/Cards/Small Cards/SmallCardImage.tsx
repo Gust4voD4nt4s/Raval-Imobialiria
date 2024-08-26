@@ -1,5 +1,6 @@
 import Image, { StaticImageData } from 'next/image';
-import ImageImovel from '@/Images/imovel.png'
+import Casa from '@/images/casa.png'
+
 
 
 interface SmallCardImageProps {
@@ -8,7 +9,7 @@ interface SmallCardImageProps {
 
 const SmallCardImage = ({image}: SmallCardImageProps) => {
     return (
-        <Image src={image || ImageImovel} alt='' width={250} height={250} className='rounded-t-[15px]' />
+        <Image src={image || Casa} alt='' width={250} height={220} className='rounded-t-[15px] w-full h-[220px]' />
     )
 }
 

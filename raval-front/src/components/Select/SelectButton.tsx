@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes } from "react"
+import { ButtonHTMLAttributes, forwardRef } from "react"
 import Image, { StaticImageData } from "next/image"
 import { twMerge } from 'tailwind-merge'
 
@@ -16,7 +16,7 @@ const SelectButton = ({ text, icon, ...rest }: SelectButtonProps) => {
             {text}
             <Image src={icon} alt='' />
         </button>
-    )
-}
+    );
+};
 
 export default SelectButton

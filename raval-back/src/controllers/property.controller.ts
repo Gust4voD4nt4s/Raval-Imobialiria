@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { createProperty, findPropertys } from '../services/property.service'
 import { CreatePropertyInput, createPropertySchema } from '../schemas/property.schema';
-import { Between, In, MoreThanOrEqual } from 'typeorm';
+import { Between, In, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { ZodError } from 'zod';
 
 export const registerProperty = async (req: Request<object, object, CreatePropertyInput>, res: Response, next: NextFunction) => {
@@ -21,41 +21,34 @@ export const registerProperty = async (req: Request<object, object, CreateProper
             res.status(500).json({ message: 'Erro interno do servidor' });
         }
     }
-}
+} 
 
 export const getProperty = async (req: Request, res: Response) => {
     try {
-        const data = req.query
+        const data = req.query as Record<string, unknown>;
 
-        let multiFilter: object = { ...data }
+        const multiFilter: Record<string, unknown> = { ...data };
 
         for (const value in data) {
-            if (typeof data[value] === typeof {}) {
+            if (Array.isArray(data[value])) {
+                multiFilter[value] = In(data[value]);
+            } else if (value === 'square_meters' && data[value]) {
+                multiFilter[value] = MoreThanOrEqual(data[value]);
+            } else if (value === 'min_value' || value === 'max_value') {
+                const minValue = data.min_value;
+                const maxValue = data.max_value;
 
-                multiFilter = {
-                    ...multiFilter,
-                    [value]: In(data[value])
-                }
-            }
-
-            if (value == 'square_meters') {
-                multiFilter = {
-                    ...multiFilter,
-                    [value]: MoreThanOrEqual(data[value])
-                }
-            }
-
-            if (value == 'min_value' || value == 'max_value') {
-
-                multiFilter = {
-                    ...multiFilter,
-                    value: Between(data.min_value, data.max_value)
+                if (minValue && maxValue) {
+                    multiFilter['value'] = Between(minValue, maxValue);
+                } else if (minValue && !maxValue) {
+                    multiFilter['value'] = MoreThanOrEqual(minValue);
+                } else if (maxValue && !minValue) {
+                    multiFilter['value'] = LessThanOrEqual(maxValue);
                 }
 
-                delete multiFilter.min_value
-                delete multiFilter.max_value
+                delete multiFilter.min_value;
+                delete multiFilter.max_value;
             }
-
         }
 
         const propertys = await findPropertys({
@@ -65,12 +58,11 @@ export const getProperty = async (req: Request, res: Response) => {
             where: {
                 ...multiFilter
             }
+        });
 
-        })
-        
-        res.status(200).json(propertys)
+        res.status(200).json(propertys);
     } catch (error) {
-        console.log(error)
-        res.status(400).json({ error: error })
+        console.error(error);
+        res.status(400).json({ error: error });
     }
-}
+};

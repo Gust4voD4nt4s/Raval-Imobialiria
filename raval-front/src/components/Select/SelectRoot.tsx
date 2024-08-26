@@ -8,7 +8,7 @@ interface SelectRootProps {
 
 const SelectRoot = ({children}: SelectRootProps) => {
     return (
-        <div className="flex flex-row-reverse">
+        <div className="">
             {children}
         </div>
 

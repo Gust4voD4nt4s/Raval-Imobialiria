@@ -9,11 +9,11 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useFetch } from '@/hooks/useRequest';
-import SmallCardContainer from '@/components/Cards/Small Cards/smallCardContainer';
+import SmallCardContainer from '@/components/Cards/Small Cards/SmallCardContainer';
 import SmallCardDescription from '@/components/Cards/Small Cards/SmallCardDescription';
 import SmallCardImage from '@/components/Cards/Small Cards/SmallCardImage';
 
-interface ImageData {
+export interface ImageData {
     id: number;
     created_at: string;
     deleted_at: string | null;
@@ -22,7 +22,7 @@ interface ImageData {
     url: string
 }
 
-interface Repository {
+export interface RepositoryProperty {
     id: number,
     type_property: string,
     type_purchase: string,
@@ -46,7 +46,7 @@ interface Repository {
 const CarrouselSwiper = () => {
 
 
-    const data = useFetch<Repository[]>('http://localhost:3001/api/v1/property/')
+    const data = useFetch<RepositoryProperty[]>('http://localhost:3001/api/v1/property/')
 
 
     return (
@@ -86,7 +86,7 @@ const CarrouselSwiper = () => {
                 <SwiperSlide key={imovel.id} className='max-w-[250px]'>
                     <SmallCardContainer>
                         <SmallCardImage image={imovel.images?.[0]?.url}/>
-                        <SmallCardDescription type_property={imovel.type_property} type_purchase={imovel.type_purchase} city={imovel.city} state={imovel.state} square_meters={imovel.square_meters} />
+                        <SmallCardDescription type_property={imovel.type_property} type_purchase={imovel.type_purchase} city={imovel.city} state={imovel.state} square_meters={imovel.square_meters} plant={imovel.plant} />
                     </SmallCardContainer>
                 </SwiperSlide>
             ))}

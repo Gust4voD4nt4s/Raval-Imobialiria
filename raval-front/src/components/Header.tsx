@@ -13,52 +13,37 @@ import NavBarContainer from "./Navbar/NavBarContainer";
 import iconePerfil from '@/Images/icone_perfil.png'
 import Logo from "./Logo";
 import Button from "./Button";
+import { useForm } from "react-hook-form";
+import { useFetch } from "@/hooks/useRequest";
+import SelectButton from "./Select/SelectButton";
 
-const Header = ({ }) => {
-    const [selectVissible, setSelectVissible] = useState<{ [key: string]: boolean }>({
-        estado: false,
-        cidade: false,
-    });
 
-    const [selectedValues, setSelectedValues] = useState<{ [key: string]: string }>({
-        estado: 'ESTADOS',
-        cidade: 'CIDADES',
-    });
 
-    const [estadoOptions, setEstadoOptions] = useState<string[]>([]);
-    const [cidadeOptions, setCidadeOptions] = useState<string[]>([]);
 
-    useEffect(() => {
-        // Simular chamada para carregar dados do banco de dados
-        const fetchData = async () => {
-            // Simular delay de carregamento
-            await new Promise(resolve => setTimeout(resolve, 1000));
 
-            // Dados simulados
-            const fetchedEstadoOptions = ["ESTADOS", "SP", "RJ", "MG"];
-            const fetchedCidadeOptions = ["CIDADES", "São Paulo", "Rio de Janeiro", "Belo Horizonte"];
+interface RepositoryStatesIbge {
+    id: number,
+    sigla: string,
+    nome: string,
+}
 
-            setEstadoOptions(fetchedEstadoOptions);
-            setCidadeOptions(fetchedCidadeOptions);
-        };
+const Header = () => {
 
-        fetchData();
-    }, []);
+    const repoStates = useFetch<RepositoryStatesIbge[]>('https://servicodados.ibge.gov.br/api/v1/localidades/estados')
 
-    const toggleDropdown = (selectId: string) => {
-        setSelectVissible((prevMenus) => ({
-            ...prevMenus,
-            [selectId]: !prevMenus[selectId],
-        }));
-    };
 
-    const handleSelect = (selectId: string, value: string) => {
-        setSelectedValues((prevValues) => ({
-            ...prevValues,
-            [selectId]: value,
-        }));
-        toggleDropdown(selectId);  // Close the dropdown after selection
-    };
+    const [city, setCity] = useState('Cidades')
+    const [state, setState] = useState('Estados')
+    const [visibilitySelectState, setVisibilitySelectState] = useState(false)
+    const [visibilitySelectCity, setVisibilitySelectCity] = useState(false)
+
+    const { register, handleSubmit } = useForm()
+
+    const handleFilterProperty = (data: any) => {
+        
+        localStorage.setItem('state', data.state);
+        localStorage.setItem('city', data.city);
+    }
 
     return (
         <header
@@ -101,40 +86,101 @@ const Header = ({ }) => {
                     justify-end
                     space-x-4
                     max-mobile:space-x-0
-                    max-mobile:justify-center">
-                <Select.Root>
-                    <Select.Button
-                        text={selectedValues["estado"]}
-                        icon={ArrowSelect}
-                        className="w-[100px] h-[25px] max-laptop:hidden"
-                        onClick={() => toggleDropdown("estado")}
-                    />
-                    <Select.Menu
-                        visible={selectVissible["estado"]}
-                        options={estadoOptions}
-                        onSelect={(value) => handleSelect("estado", value)}
-                    />
-                </Select.Root>
+                    max-mobile:justify-center"
+            >
 
-                <Select.Root>
-                    <Select.Button
-                        text={selectedValues["cidade"]}
-                        icon={ArrowSelect}
-                        className="w-[200px] h-[25px] max-laptop:hidden"
-                        onClick={() => toggleDropdown("cidade")}
-                    />
-                    <Select.Menu
-                        visible={selectVissible["cidade"]}
-                        options={cidadeOptions}
-                        onSelect={(value) => handleSelect("cidade", value)}
-                    />
-                </Select.Root>
+                <form onSubmit={handleSubmit(handleFilterProperty)} className="flex space-x-4 max-mobile:space-x-0">
+                    <Select.Root>
+                        <Select.Button
+                            text={state}
+                            icon={ArrowSelect}
+                            onClick={() => setVisibilitySelectState(!visibilitySelectState)}
+                            className="w-[100px] h-[25px] max-laptop:hidden"
 
-                <Button
-                    icon={Arrow}
-                    text="BUSCAR"
-                    className="max-laptop:hidden"
-                />
+                        />
+                        {
+                            visibilitySelectState === true ?
+                                <div className="absolute py-2">
+                                    <div className="h-52 w-[100px] overflow-y-scroll custom-scrollbar cursor-pointer rounded-xl">
+                                        <ul className="bg-white mr-2">
+                                            <li
+                                                className='relative pl-2 pr-8 h-10 flex items-center hover:bg-slate-200'
+                                                onClick={() => setState('Estados')}
+                                            >
+                                                <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" value={'Estados'} {...register('state')} />
+                                                <span className='text-[12px]'>Estados</span>
+                                            </li>
+                                            {repoStates?.map((repo) => (
+                                                <li
+                                                    key={repo.id}
+                                                    className='relative pl-2 pr-8 h-10 flex items-center hover:bg-slate-200 cursor-pointer'
+                                                >
+                                                    <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" onClick={() => setState(repo.nome)} value={repo.nome} {...register('state')} />
+                                                    <span className='text-[12px]'>{repo.sigla}</span>
+                                                </li>
+                                            ))}
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                : ''
+                        }
+
+                    </Select.Root>
+                    <Select.Root>
+                        <Select.Button
+                            text={city}
+                            icon={ArrowSelect}
+                            onClick={() => setVisibilitySelectCity(!visibilitySelectCity)}
+                            className="w-[200px] h-[25px] max-laptop:hidden"
+
+                        />
+                        {
+                            visibilitySelectCity === true ?
+                                <div className="absolute py-2">
+                                    <div className="h-52 w-[200px] overflow-y-scroll custom-scrollbar cursor-pointer rounded-xl">
+                                        <ul className="bg-white mr-2">
+                                            <li
+                                                className='relative pl-2 pr-8 h-10 flex items-center hover:bg-slate-200'
+                                                onClick={() => setCity('Cidades')}
+                                            >
+                                                <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" value={'Cidades'} {...register('city')} />
+                                                <span className='text-[12px]'>Cidades</span>
+                                            </li>
+                                            {repoStates?.map((repo) => (
+                                                <li
+                                                    key={repo.id}
+                                                    className='relative pl-2 pr-8 h-10 flex items-center hover:bg-slate-200 cursor-pointer'
+                                                >
+                                                    <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" onClick={() => setCity(repo.nome)} value={repo.nome} {...register('city')} />
+                                                    <span className='text-[12px]'>{repo.nome}</span>
+                                                </li>
+                                            ))}
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                : ''
+                        }
+
+                    </Select.Root>
+
+                    <Link href="/Empreendimentos">
+                        asdkjfhas
+                    </Link>
+                        {/* <Button
+                            icon={Arrow}
+                            text="BUSCAR"
+                            className="max-laptop:hidden"
+                        /> */}
+                    
+
+
+                </form>
+
+
 
 
                 <Link href='' className="flex flex-col items-center mt-1 pl-[10px] pr-[25px] max-mobile:pl-[10px] max-mobile:pr-0">
@@ -150,6 +196,7 @@ const Header = ({ }) => {
 
 
         </header >
+
     )
 }
 

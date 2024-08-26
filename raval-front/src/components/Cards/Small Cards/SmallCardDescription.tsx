@@ -38,19 +38,19 @@ const SmallCardDescription = ({ plant, type_purchase, type_property, city, state
                 {plant === true ?
                     <div
                         className='
-                                        w-14 
-                                        h-4
-                                        flex
-                                        justify-center
-                                        items-center 
-                                        text-white 
-                                        font-normal 
-                                        text-[7px] 
-                                        bg-[#085942] 
-                                        rounded-3xl 
-                                        drop-shadow-[4px_4px_5px_rgba(0,0,0,0.25)]
-                                        cursor-pointer
-                                    '
+                            w-14 
+                            h-4
+                            flex
+                            justify-center
+                            items-center 
+                            text-white 
+                            font-normal 
+                            text-[7px] 
+                            bg-[#085942] 
+                            rounded-3xl 
+                            drop-shadow-[4px_4px_5px_rgba(0,0,0,0.25)]
+                            cursor-pointer
+                        '
                     >
                         <p>NA PLANTA</p>
                     </div>
@@ -64,12 +64,12 @@ const SmallCardDescription = ({ plant, type_purchase, type_property, city, state
             </div>
 
             <div className='ml-2 mt-[7px]'>
-                <h1 className='text-base'>{type_purchase.toUpperCase()} - {type_property.toUpperCase()}</h1>
+                <h1 className='text-base uppercase'>{type_purchase} - {type_property}</h1>
                 <p className='text-xs'>{city}, {state}</p>
                 <ul className='flex flex-col space-y-1 mt-5'>
                     <li className='flex'>
                         <Image src={M2} alt='Metros Quadrado' />
-                        <p className='ml-1'>{square_meters} m2</p>
+                        <p className='ml-1'>{square_meters} m²</p>
                     </li>
                     <li className='flex'>
                         <Image src={Cama} alt='Quarto' />

@@ -10,17 +10,17 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button = ({ icon, text, ...rest }: ButtonProps) => {
     return (
-        <button
-            className={twMerge("bg-[#085942] px-2 h-6 font-semibold text-[10px] text-white flex justify-center items-center rounded-full drop-shadow-[4px_4px_10px_rgba(0,0,0,0.25)]", rest.className)}
-        >
-            {
-                icon ?
-                    <Image src={icon ? icon : ''} alt={''} className="mr-1"></Image>
-                : ''
-            }
+            <button
+                className={twMerge("bg-[#085942] px-2 h-6 font-semibold text-[10px] text-white flex justify-center items-center rounded-full drop-shadow-[4px_4px_10px_rgba(0,0,0,0.25)]", rest.className)}
+            >
+                {
+                    icon ?
+                        <Image src={icon ? icon : ''} alt={''} className="mr-1"></Image>
+                        : ''
+                }
 
-            <p>{text}</p>
-        </button>
+                <p>{text}</p>
+            </button>
     )
 }
 

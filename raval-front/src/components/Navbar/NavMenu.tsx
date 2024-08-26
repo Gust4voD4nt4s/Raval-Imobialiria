@@ -12,7 +12,7 @@ const NavMenu = () => {
                         max-laptop:hidden"
             >
                 <Link
-                    href={""}
+                    href={"/"}
                     className="
                             text-sm
                             font-medium"
@@ -44,7 +44,7 @@ const NavMenu = () => {
                     <li>VENDER</li>
                 </Link>
                 <Link
-                    href={""}
+                    href={"/Empreendimentos"}
                     className="
                             text-sm
                             font-medium"

@@ -3,15 +3,15 @@ import Model from './model.entity'
 import Images from './images.entity';
 
 export enum RoleEnumTypeOfProperty {
-    HOME = 'casa',
-    APARTMENT = 'apartamento',
-    CONDOMINIUM = 'condominium',
-    GROUND = 'terreno'
+    HOME = 'Casa',
+    APARTMENT = 'Apartamento',
+    CONDOMINIUM = 'Condominium',
+    GROUND = 'Terreno'
 }
 
 export enum RoleEnumTypeOfPurchase {
-    SALE = 'venda',
-    RENT = 'aluguel'
+    SALE = 'Venda',
+    RENT = 'Aluguel'
 }
 
 @Entity('property')

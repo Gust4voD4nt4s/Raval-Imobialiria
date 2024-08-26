@@ -13,8 +13,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 require('dotenv').config();
+const cors = require('cors');
 const express_1 = __importDefault(require("express"));
 const config_1 = __importDefault(require("config"));
+const path_1 = require("path");
 const validate_env_1 = __importDefault(require("./utils/validate-env"));
 const data_source_1 = __importDefault(require("./utils/data-source"));
 const property_route_1 = __importDefault(require("./routes/property.route"));
@@ -24,6 +26,10 @@ data_source_1.default.initialize()
     (0, validate_env_1.default)();
     const app = (0, express_1.default)();
     app.use(express_1.default.json({ limit: '10kb' }));
+    app.use(express_1.default.static((0, path_1.resolve)(__dirname, 'uploads')));
+    app.use(cors({
+        origin: config_1.default.get('origin')
+    }));
     app.use('/api/v1/property', property_route_1.default);
     app.use('/api/v1', photos_route_1.default);
     const port = config_1.default.get('port');

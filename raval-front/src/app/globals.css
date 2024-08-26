@@ -26,3 +26,20 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #04403A;
+  border-radius: 10px;
+}
+
+

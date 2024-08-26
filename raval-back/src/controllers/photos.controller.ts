@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import { upload } from "../middlewares/multer.middlewares";
 import { createImages, IImages } from "../services/images.service";
 
-
-
 export const photosProperty = (req: Request, res: Response) => {
     const up = upload.array('files');
     up(req, res, async (error) => {
