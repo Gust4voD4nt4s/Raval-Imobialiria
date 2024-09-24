@@ -40,10 +40,12 @@ const Header = () => {
     const { register, handleSubmit } = useForm()
 
     const handleFilterProperty = (data: any) => {
-        
-        localStorage.setItem('state', data.state);
-        localStorage.setItem('city', data.city);
+        localStorage.setItem('state', data.state)
+        localStorage.setItem('city', data.city)
+        window.location.href = '/Empreendimentos'
     }
+
+
 
     return (
         <header
@@ -94,9 +96,9 @@ const Header = () => {
                         <Select.Button
                             text={state}
                             icon={ArrowSelect}
+                            type="button"
                             onClick={() => setVisibilitySelectState(!visibilitySelectState)}
                             className="w-[100px] h-[25px] max-laptop:hidden"
-
                         />
                         {
                             visibilitySelectState === true ?
@@ -105,7 +107,7 @@ const Header = () => {
                                         <ul className="bg-white mr-2">
                                             <li
                                                 className='relative pl-2 pr-8 h-10 flex items-center hover:bg-slate-200'
-                                                onClick={() => setState('Estados')}
+                                                onClick={() => { setState('Estados'); setVisibilitySelectState(!visibilitySelectState) }}
                                             >
                                                 <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" value={'Estados'} {...register('state')} />
                                                 <span className='text-[12px]'>Estados</span>
@@ -115,7 +117,7 @@ const Header = () => {
                                                     key={repo.id}
                                                     className='relative pl-2 pr-8 h-10 flex items-center hover:bg-slate-200 cursor-pointer'
                                                 >
-                                                    <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" onClick={() => setState(repo.nome)} value={repo.nome} {...register('state')} />
+                                                    <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" onClick={() => { setState(repo.nome); setVisibilitySelectState(!visibilitySelectState) }} value={repo.nome} {...register('state')} />
                                                     <span className='text-[12px]'>{repo.sigla}</span>
                                                 </li>
                                             ))}
@@ -132,6 +134,7 @@ const Header = () => {
                         <Select.Button
                             text={city}
                             icon={ArrowSelect}
+                            type="button"
                             onClick={() => setVisibilitySelectCity(!visibilitySelectCity)}
                             className="w-[200px] h-[25px] max-laptop:hidden"
 
@@ -143,7 +146,7 @@ const Header = () => {
                                         <ul className="bg-white mr-2">
                                             <li
                                                 className='relative pl-2 pr-8 h-10 flex items-center hover:bg-slate-200'
-                                                onClick={() => setCity('Cidades')}
+                                                onClick={() => {setCity('Cidades'); setVisibilitySelectCity(!visibilitySelectCity)}}
                                             >
                                                 <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" value={'Cidades'} {...register('city')} />
                                                 <span className='text-[12px]'>Cidades</span>
@@ -153,7 +156,7 @@ const Header = () => {
                                                     key={repo.id}
                                                     className='relative pl-2 pr-8 h-10 flex items-center hover:bg-slate-200 cursor-pointer'
                                                 >
-                                                    <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" onClick={() => setCity(repo.nome)} value={repo.nome} {...register('city')} />
+                                                    <input className="absolute w-full h-full appearance-none cursor-pointer" type="radio" onClick={() => {setCity(repo.nome); setVisibilitySelectCity(!visibilitySelectCity)}} value={repo.nome} {...register('city')} />
                                                     <span className='text-[12px]'>{repo.nome}</span>
                                                 </li>
                                             ))}
@@ -167,15 +170,16 @@ const Header = () => {
 
                     </Select.Root>
 
-                    <Link href="/Empreendimentos">
-                        asdkjfhas
-                    </Link>
-                        {/* <Button
-                            icon={Arrow}
-                            text="BUSCAR"
-                            className="max-laptop:hidden"
-                        /> */}
-                    
+
+                    <Button
+                        type="submit"
+                        icon={Arrow}
+                        text="BUSCAR"
+                        className="max-laptop:hidden"
+                    />
+
+
+
 
 
                 </form>

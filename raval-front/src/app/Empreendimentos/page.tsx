@@ -43,8 +43,6 @@ export default function Empreendimentos() {
     }
   };
 
-
-
   const [param, setParam] = useState<object>({})
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const { register, handleSubmit } = useForm({
@@ -143,7 +141,7 @@ export default function Empreendimentos() {
             <Button type="submit" text="APLICAR" className="w-[125px] h-7" />
           </form>
         </div>
-        <div className="grid grid-cols-2 mt-[35px]">
+        <div className="grid grid-cols-2 mt-[35px] -z-10">
 
           {data?.map((imovel) => (
             <MediumCardContainer key={imovel.id}>

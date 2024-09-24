@@ -5,6 +5,9 @@ import icon from '@/images/ArrowSelect.png'
 
 import CarrouselSwiper from "@/components/Slides/Carrousel/CarrouselSwiper";
 import Image from "next/image";
+import AdvertisingSlide from "@/components/Slides/Slide/AdvertisingSlide";
+import Footer from "@/components/Footer";
+import ReviewSlide from "@/components/Slides/Slide/ReviewSlide";
 
 export default function Home() {
 
@@ -14,7 +17,7 @@ export default function Home() {
       <Hero />
       <section id="Imoveis" className="mt-[10px] bg-[#F9F9F9] text-center">
         <h1 className="py-[17px] font-medium text-3xl text-[#083B47]">NOSSOS IMOVEIS</h1>
-        <CarrouselSwiper />
+        {/* <CarrouselSwiper /> */}
         <div className="w-full flex justify-center py-[44px]">
           <Button
             text={"VER MAIS"}
@@ -22,6 +25,13 @@ export default function Home() {
           />
         </div>
       </section>
+      <section className="h-52 flex items-center">
+        <AdvertisingSlide />
+      </section>
+      <section className="flex flex-col items-center">
+        <ReviewSlide />
+      </section>
+      <Footer />
     </>
   );
 }
