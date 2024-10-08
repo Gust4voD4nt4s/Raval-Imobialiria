@@ -1,4 +1,4 @@
 export default {
     origin: 'http://localhost:3000',
-    baseUrl: 'https://rnqjbcpadbtxtjmlmntu.supabase.co'
+    baseUrl: 'http://localhost:3001'
 };  

@@ -1,7 +1,5 @@
-import { StaticImageData } from "next/image";
 import Image from 'next/image';
 
-import ImageImovel from '@/Images/imovel.png'
 import Star from '@/Images/estrela_favorito.png'
 import M2 from '@/Images/m2.png'
 import Cama from '@/Images/cama.png'

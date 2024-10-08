@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
-import { createProperty, findPropertys } from '../services/property.service'
+import { createProperty, findPropertysWithFilter } from '../services/property.service'
 import { CreatePropertyInput, createPropertySchema } from '../schemas/property.schema';
-import { Between, In, LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+
 import { ZodError } from 'zod';
 
 export const registerProperty = async (req: Request<object, object, CreatePropertyInput>, res: Response, next: NextFunction) => {
@@ -25,42 +25,24 @@ export const registerProperty = async (req: Request<object, object, CreateProper
 
 export const getProperty = async (req: Request, res: Response) => {
     try {
-        const data = req.query as Record<string, unknown>;
+        const filters = {...req.query} as Record<string, unknown>;
 
-        const multiFilter: Record<string, unknown> = { ...data };
+        const page = req.query.page || 1
+        const limit = req.query.limit || 10
 
-        for (const value in data) {
-            if (Array.isArray(data[value])) {
-                multiFilter[value] = In(data[value]);
-            } else if (value === 'square_meters' && data[value]) {
-                multiFilter[value] = MoreThanOrEqual(data[value]);
-            } else if (value === 'min_value' || value === 'max_value') {
-                const minValue = data.min_value;
-                const maxValue = data.max_value;
+        delete filters.page
+        delete filters.limit
 
-                if (minValue && maxValue) {
-                    multiFilter['value'] = Between(minValue, maxValue);
-                } else if (minValue && !maxValue) {
-                    multiFilter['value'] = MoreThanOrEqual(minValue);
-                } else if (maxValue && !minValue) {
-                    multiFilter['value'] = LessThanOrEqual(maxValue);
-                }
+        const {propertys, total} = await findPropertysWithFilter(filters, Number(page), Number(limit))
 
-                delete multiFilter.min_value;
-                delete multiFilter.max_value;
-            }
-        }
+        const totalPages = Math.ceil(total / Number(limit));
 
-        const propertys = await findPropertys({
-            relations: {
-                images: true
-            },
-            where: {
-                ...multiFilter
-            }
+        res.status(200).json({
+            propertys,
+            total,
+            totalPages,
+            currentPage: page,
         });
-
-        res.status(200).json(propertys);
     } catch (error) {
         console.error(error);
         res.status(400).json({ error: error });

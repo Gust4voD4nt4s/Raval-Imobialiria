@@ -23,5 +23,17 @@ services:
     ports:
       - "5050:80"
 
+  api:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: raval_api_container
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db
+
 volumes:
   postgres_data:

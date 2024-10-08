@@ -17,7 +17,7 @@ export default function Home() {
       <Hero />
       <section id="Imoveis" className="mt-[10px] bg-[#F9F9F9] text-center">
         <h1 className="py-[17px] font-medium text-3xl text-[#083B47]">NOSSOS IMOVEIS</h1>
-        {/* <CarrouselSwiper /> */}
+        <CarrouselSwiper />
         <div className="w-full flex justify-center py-[44px]">
           <Button
             text={"VER MAIS"}

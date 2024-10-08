@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['localhost', 'example.com', 'cdn.example.com'], // Adicione 'localhost' e outros domínios conforme necessário
+        domains: ['localhost', 'https://ravalprivate-production.up.railway.app', 'cdn.example.com'], // Adicione 'localhost' e outros domínios conforme necessário
     },
 };
 

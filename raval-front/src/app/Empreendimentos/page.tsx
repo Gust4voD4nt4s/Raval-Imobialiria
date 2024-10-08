@@ -5,10 +5,10 @@ import { useFetch } from "@/hooks/useRequest";
 import Image from "next/image";
 import { RepositoryProperty } from "@/components/Slides/Carrousel/CarrouselSwiper";
 import MediumCardContainer from "@/components/Cards/Medium Cards/MediumCardContainer";
-import M2 from '@/Images/m2.png'
-import Cama from '@/Images/cama.png'
-import Banheira from '@/Images/banheira.png'
-import LogoMCMV from '@/Images/logo-mcmv-2023.png'
+import M2 from '@/images/m2.png'
+import Cama from '@/images/cama.png'
+import Banheira from '@/images/banheira.png'
+import LogoMCMV from '@/images/logo-mcmv-2023.png'
 import Garagem from '@/images/garagem.png'
 import Piscina from '@/images/piscina.png'
 import Area_Gourmet from '@/images/churrasqueira.png'
@@ -150,6 +150,8 @@ export default function Empreendimentos() {
                 <Image priority width={300} height={0} className="col-start-2 rounded-t-xl w-[135px] h-[105px]" src={imovel.images?.[1]?.url || Casa} alt="" />
                 <Image priority width={300} height={0} className="col-start-2 w-[135px] h-[105px]" src={imovel.images?.[2]?.url || Casa} alt="" />
               </div>
+
+              
 
               <div className="flex justify-between">
                 <div>
