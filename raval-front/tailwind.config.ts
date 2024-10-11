@@ -9,6 +9,9 @@ const config: Config = {
   theme: {
     screens: {
       'laptop': '1240px',
+      'mini_laptop': '1080px',
+      'tablet': '806px',
+      'tablet_mini': '613px', 
       'mobile': '450px'
     },
     extend: {
