@@ -1,6 +1,7 @@
 import { AfterLoad, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import Model from "./model.entity";
 import { Property } from "./property.entity";
+import { Headquarters } from "./headquarters.entity";
 import config from '../../config/default'
 
 @Entity('images')
@@ -30,7 +31,11 @@ export default abstract class Images extends Model {
 
     @ManyToOne(() => Property, property => property.images)
     @JoinColumn({ name: "property_id" })
-    property: Property;
+    property?: Property;
+
+    @ManyToOne(() => Headquarters, headquarters => headquarters.images)
+    @JoinColumn({ name: "hadquarter_id" })
+    headquarters?: Headquarters;
 
 }
 
